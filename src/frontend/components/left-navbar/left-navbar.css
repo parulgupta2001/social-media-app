@@ -1,0 +1,66 @@
+.left_nav_container {
+  position: sticky;
+  width: 30%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-right: solid 1px var(--border-color);
+  row-gap: 6rem;
+}
+
+.logo {
+  width: 1.8rem;
+  height: 2rem;
+  padding-top: 1rem;
+}
+
+.function_icon {
+  width: 2rem;
+  height: 2rem;
+}
+
+.tweet_btn {
+  width: 12rem;
+  height: 3rem;
+  border-radius: 2rem;
+  font-weight: 700;
+  background-color: var(--btn-background-color);
+  color: var(--font-primary-color);
+  font-size: 16px;
+}
+
+.functional_icon_container {
+  display: flex;
+  column-gap: 1rem;
+}
+
+.functionality {
+  font-size: larger;
+  font-weight: 700;
+}
+
+.functional_container {
+  width: 14rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.profile img {
+  border-radius: 50%;
+  width: 3rem;
+  height: 3rem;
+}
+
+.profile {
+  display: flex;
+  column-gap: 1rem;
+}
+
+.profile_name {
+  font-weight: 700;
+}
+
+.profile_email {
+  color: var(--font-secondary-color);
+}
