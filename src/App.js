@@ -1,13 +1,23 @@
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { Home } from "./frontend/pages/home/Home";
+import { Home, Login, Signup } from "./frontend/pages/index";
+import { RequiresAuth } from "./frontend/requires-auth";
 import Mockman from "mockman-js";
 
 function App() {
   return (
     <div className="app">
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route
+          path="/"
+          element={
+            // <RequiresAuth>
+            <Home />
+            // </RequiresAuth>
+          }
+        />
+        <Route path="/login" element={<Login />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/test-api" element={<Mockman />} />
       </Routes>
     </div>
