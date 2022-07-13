@@ -5,7 +5,7 @@
   flex-direction: column;
   align-items: center;
   border-right: solid 1px var(--border-color);
-  row-gap: 6rem;
+  row-gap: 15rem;
 }
 
 .logo {
@@ -19,7 +19,7 @@
   height: 2rem;
 }
 
-.tweet_btn {
+.post_btn {
   width: 12rem;
   height: 3rem;
   border-radius: 2rem;
@@ -32,6 +32,12 @@
 .functional_icon_container {
   display: flex;
   column-gap: 1rem;
+}
+
+.functional_icon_container:hover {
+  background-color: var(--who-to-follow-background-color);
+  border-radius: 1rem;
+  width: 10rem;
 }
 
 .functionality {
@@ -63,4 +69,9 @@
 
 .profile_email {
   color: var(--font-secondary-color);
+}
+
+.left_nav_link {
+  text-decoration: none;
+  color: var(--font-primary-color);
 }

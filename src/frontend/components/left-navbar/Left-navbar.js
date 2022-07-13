@@ -2,12 +2,21 @@ import "./left-navbar.css";
 import { FaFeatherAlt } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
 import { RiHashtag } from "react-icons/ri";
-import { IoNotificationsOutline } from "react-icons/io5";
-import { BiEnvelope } from "react-icons/bi";
 import { FiBookmark } from "react-icons/fi";
 import { CgProfile } from "react-icons/cg";
+import { Link } from "react-router-dom";
+import { PostModal } from "../index";
+import { useDispatch, useSelector } from "react-redux";
+import { addPost } from "../../features/post-slice";
 
-export function LeftNav() {
+export function LeftNav({ postModal, setPostModal }) {
+  const token = useSelector((store) => store.auth.token);
+  const dispatch = useDispatch();
+
+  const postHandler = () => {
+    setPostModal((prev) => !prev);
+  };
+
   return (
     <div className="left_nav_container">
       <div className="functional_container">
@@ -15,37 +24,37 @@ export function LeftNav() {
           <FaFeatherAlt className="logo" />
         </div>
 
-        <div className="functional_icon_container">
-          <AiFillHome className="function_icon" />
-          <div className="functionality">Home</div>
-        </div>
+        <Link to="/" className="left_nav_link">
+          <div className="functional_icon_container">
+            <AiFillHome className="function_icon" />
+            <div className="functionality">Home</div>
+          </div>
+        </Link>
 
-        <div className="functional_icon_container">
-          <RiHashtag className="function_icon" />
-          <div className="functionality">Explore</div>
-        </div>
+        <Link to="/explore" className="left_nav_link">
+          <div className="functional_icon_container">
+            <RiHashtag className="function_icon" />
+            <div className="functionality">Explore</div>
+          </div>
+        </Link>
 
-        <div className="functional_icon_container">
-          <IoNotificationsOutline className="function_icon" />
-          <div className="functionality">Notifications</div>
-        </div>
+        <Link to="/bookmark" className="left_nav_link">
+          <div className="functional_icon_container">
+            <FiBookmark className="function_icon" />
+            <div className="functionality">Bookmarks</div>
+          </div>
+        </Link>
 
-        <div className="functional_icon_container">
-          <BiEnvelope className="function_icon" />
-          <div className="functionality">Messages</div>
-        </div>
+        <Link to="/profile" className="left_nav_link">
+          <div className="functional_icon_container">
+            <CgProfile className="function_icon" />
+            <div className="functionality">Profile</div>
+          </div>
+        </Link>
 
-        <div className="functional_icon_container">
-          <FiBookmark className="function_icon" />
-          <div className="functionality">Bookmarks</div>
-        </div>
-
-        <div className="functional_icon_container">
-          <CgProfile className="function_icon" />
-          <div className="functionality">Profile</div>
-        </div>
-
-        <button className="tweet_btn">Tweet</button>
+        <button className="post_btn" onClick={postHandler}>
+          Post
+        </button>
       </div>
 
       <div className="profile">
@@ -55,6 +64,15 @@ export function LeftNav() {
           <div className="profile_email">@guptaparul123</div>
         </div>
       </div>
+
+      {postModal && (
+        <PostModal
+          dispatch={dispatch}
+          addPost={addPost}
+          token={token}
+          setPostModal={setPostModal}
+        />
+      )}
     </div>
   );
 }

@@ -3,6 +3,7 @@ import axios from "axios";
 
 const initialState = {
   token: localStorage.getItem("token") ?? null,
+  user: JSON.parse(localStorage.getItem("user")) || null,
   status: "idle",
   error: null,
 };
@@ -26,7 +27,10 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
-      state.token = null;
+      localStorage.removeItem("token");
+      localStorage.removeItem("user");
+      state.token = "";
+      state.user = null;
     },
   },
   extraReducers: {
