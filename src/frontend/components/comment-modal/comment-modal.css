@@ -1,3 +1,26 @@
 .comment_modal_container {
+  height: 5rem;
   display: flex;
+  column-gap: 2rem;
+  align-items: center;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px,
+    var(--font-primary-color) 0px 8px 16px -8px;
+  width: 34rem;
+}
+
+.comment_modal_container input {
+  width: 20rem;
+  height: 1rem;
+}
+
+.comment_btn {
+  background-color: var(--btn-background-color);
+  color: var(--font-primary-color);
+  height: 1.5rem;
+  border-radius: 0.5rem;
+}
+
+.close_btn {
+  float: right;
+  padding-left: 1rem;
 }

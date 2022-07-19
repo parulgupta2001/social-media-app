@@ -1,47 +1,48 @@
 import React, { useEffect, useState } from "react";
 import "./comment-modal.css";
 import { AiOutlineClose } from "react-icons/ai";
+import { useSelector } from "react-redux";
 
 export function CommentModal({
   dispatch,
-  getSinglePost,
-  singlePost,
   addComment,
   postId,
   token,
   setCommentModal,
 }) {
   const [text, setText] = useState("");
-
-  useEffect(() => {
-    dispatch(getSinglePost(postId));
-  }, []);
+  const { user } = useSelector((store) => store.auth);
 
   const changeHandler = (e) => {
     setText(e.target.value);
   };
 
   const addCommentHandler = () => {
-    dispatch(addComment({ postId, commentData: { text }, token }));
+    console.log(text);
+    dispatch(addComment({ postId, commentData: { text }, token })).then((res) =>
+      console.log(res)
+    );
     setCommentModal(false);
   };
 
   return (
-    <div className="comment_modal_container">
-      <img src={singlePost.avatarURL} className="avatar_img" />
+    <div>
+      <AiOutlineClose
+        onClick={() => setCommentModal(false)}
+        className="close_btn"
+      />
+      <div className="comment_modal_container">
+        <img src={user.avatarURL} className="avatar_img" alt="profile pic" />
 
-      <div>
         <input
           onChange={changeHandler}
           value={text}
           placeholder="Post your reply"
         />
-
-        <button onClick={addCommentHandler} className="post_btn">
+        <button onClick={addCommentHandler} className="comment_btn">
           Comment
         </button>
       </div>
-      <AiOutlineClose onClick={() => setCommentModal(false)} />
     </div>
   );
 }

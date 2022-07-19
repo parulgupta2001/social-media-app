@@ -1,0 +1,42 @@
+.edit_profile_container {
+  position: absolute;
+  top: 6rem;
+  left: 6rem;
+  background-color: var(--who-to-follow-background-color);
+  height: 20rem;
+  width: 16rem;
+  padding: 1rem;
+  border-radius: 1rem;
+}
+
+.edit_profile_content_container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 1.5rem;
+  padding-top: 2rem;
+}
+
+.edit_profile_content {
+  display: flex;
+  justify-content: space-between;
+}
+
+.update_btn {
+  background-color: var(--btn-background-color);
+  border: none;
+  width: 10rem;
+  padding: 0.5rem;
+  border-radius: 1rem;
+  color: var(--font-primary-color);
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.edit_profile_content input {
+  border-radius: 0.4rem;
+  height: 1.3rem;
+}
+
+.edit_profile_content textarea {
+  border-radius: 0.4rem;
+}

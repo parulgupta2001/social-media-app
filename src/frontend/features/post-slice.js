@@ -27,12 +27,13 @@ const getSinglePost = createAsyncThunk(
 const addPost = createAsyncThunk(
   "posts/addPost",
   async ({ postData, token }) => {
-    console.log(postData);
+    console.log(postData, token);
     const response = await axios.post(
       "/api/posts",
       { postData },
       { headers: { authorization: token } }
     );
+    console.log(response);
     return response.data.posts;
   }
 );
@@ -62,9 +63,14 @@ const editPost = createAsyncThunk(
 const likePost = createAsyncThunk(
   "posts/likePost",
   async ({ postId, token }) => {
-    const response = await axios.post(`/api/posts/like/${postId}`, {
-      Headers: { authorization: token },
-    });
+    console.log("like");
+    const response = await axios.post(
+      `/api/posts/like/${postId}`,
+      {},
+      {
+        headers: { authorization: token },
+      }
+    );
     return response.data.posts;
   }
 );
@@ -72,9 +78,15 @@ const likePost = createAsyncThunk(
 const dislikePost = createAsyncThunk(
   "posts/dislikePost",
   async ({ postId, token }) => {
-    const response = await axios.post(`/api/posts/dislike/${postId}`, {
-      Headers: { authorization: token },
-    });
+    console.log("dislike");
+    console.log("dislike post executed");
+    const response = await axios.post(
+      `/api/posts/dislike/${postId}`,
+      {},
+      {
+        headers: { authorization: token },
+      }
+    );
     return response.data.posts;
   }
 );
@@ -90,14 +102,13 @@ const getAllComments = createAsyncThunk(
 const addComment = createAsyncThunk(
   "posts/addComment",
   async ({ postId, commentData, token }) => {
-    console.log(1);
+    console.log("comment added");
     const response = await axios.post(
       `/api/comments/add/${postId}`,
       { commentData },
       { headers: { authorization: token } }
     );
-    console.log(response.data);
-    return response.data;
+    return response.data.posts;
   }
 );
 
@@ -124,25 +135,42 @@ const deleteComment = createAsyncThunk(
   }
 );
 
-const upvoteComment = createAsyncThunk(
-  "posts/upvoteComment",
-  async ({ postId, commentId, token }) => {
-    const response = await axios.post(
-      `/api/comments/upvote/${postId}/${commentId}`,
-      { Headers: { authorization: token } }
-    );
-    return response.data.posts;
+const getAllBookmarks = createAsyncThunk(
+  "posts/getAllBookmarks",
+  async (token) => {
+    const response = await axios.get("/api/users/bookmark", {
+      headers: { authorization: token },
+    });
+    return response.data.bookmarks;
   }
 );
 
-const downvoteComment = createAsyncThunk(
-  "posts/downvoteComment",
-  async ({ postId, commentId, token }) => {
+const addBookmark = createAsyncThunk(
+  "posts/addBookmark",
+  async ({ postId, token }) => {
     const response = await axios.post(
-      `/api/comments/downvote/${postId}/${commentId}`,
-      { Headers: { authorization: token } }
+      `/api/users/bookmark/${postId}`,
+      {},
+      {
+        headers: { authorization: token },
+      }
     );
-    return response.data.posts;
+    return response.data.bookmarks;
+  }
+);
+
+const removeBookmark = createAsyncThunk(
+  "posts/removeBookmark",
+  async ({ postId, token }) => {
+    console.log("bookmark removed");
+    const response = await axios.post(
+      `/api/users/remove-bookmark/${postId}`,
+      {},
+      {
+        headers: { authorization: token },
+      }
+    );
+    return response.data.bookmarks;
   }
 );
 
@@ -252,23 +280,35 @@ const postsSlice = createSlice({
       state.postsStatus = "error";
       state.error = action.error;
     },
-
-    [upvoteComment.fulfilled]: (state, action) => {
-      state.postsStatus = "fulfilled";
-      state.posts = action.payload;
+    [getAllBookmarks.pending]: (state) => {
+      state.bookmarksStatus = "loading";
     },
-    [upvoteComment.rejected]: (state, action) => {
-      state.postsStatus = "error";
+    [getAllBookmarks.fulfilled]: (state, action) => {
+      state.bookmarksStatus = "fulfilled";
+      state.bookmarks = action.payload;
+    },
+    [getAllBookmarks.rejected]: (state, action) => {
+      state.bookmarksStatus = "error";
       state.error = action.error;
     },
 
-    [downvoteComment.fulfilled]: (state, action) => {
-      state.postsStatus = "fulfilled";
-      state.posts = action.payload;
+    [addBookmark.fulfilled]: (state, action) => {
+      state.bookmarksStatus = "fulfilled";
+      state.bookmarks = action.payload;
     },
-    [downvoteComment.rejected]: (state, action) => {
-      state.postsStatus = "error";
+    [addBookmark.rejected]: (state, action) => {
+      state.bookmarksStatus = "error";
       state.error = action.error;
+      console.log(state.error);
+    },
+
+    [removeBookmark.fulfilled]: (state, action) => {
+      state.bookmarksStatus = "fulfilled";
+      state.bookmarks = action.payload;
+    },
+    [removeBookmark.rejected]: (state, action) => {
+      state.bookmarksStatus = "error";
+      state.bookmarks = action.error;
     },
   },
 });
@@ -284,7 +324,8 @@ export {
   addComment,
   editComment,
   deleteComment,
-  upvoteComment,
-  downvoteComment,
+  getAllBookmarks,
+  addBookmark,
+  removeBookmark,
 };
 export const postsReducer = postsSlice.reducer;

@@ -1,17 +1,27 @@
 import "./left-navbar.css";
-import { FaFeatherAlt } from "react-icons/fa";
 import { AiFillHome } from "react-icons/ai";
-import { RiHashtag } from "react-icons/ri";
-import { FiBookmark } from "react-icons/fi";
+import { RiHashtag, RiLogoutCircleLine } from "react-icons/ri";
+import { BsBookmark } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { PostModal } from "../index";
 import { useDispatch, useSelector } from "react-redux";
-import { addPost } from "../../features/post-slice";
+import { addPost, logout } from "../../features/index";
 
 export function LeftNav({ postModal, setPostModal }) {
-  const token = useSelector((store) => store.auth.token);
+  const { user, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const arr = [
+    { component: "Home", icon: <AiFillHome /> },
+    { component: "Explore", icon: <RiHashtag /> },
+    { component: "Bookmarks", icon: <BsBookmark /> },
+  ];
+
+  const logoutHandler = () => {
+    dispatch(logout());
+    navigate("/");
+  };
 
   const postHandler = () => {
     setPostModal((prev) => !prev);
@@ -20,50 +30,55 @@ export function LeftNav({ postModal, setPostModal }) {
   return (
     <div className="left_nav_container">
       <div className="functional_container">
-        <div>
-          <FaFeatherAlt className="logo" />
-        </div>
-
-        <Link to="/" className="left_nav_link">
-          <div className="functional_icon_container">
-            <AiFillHome className="function_icon" />
-            <div className="functionality">Home</div>
-          </div>
+        <Link to="/page/Home" className="logo_link">
+          <div className="logo">ᖇᗴᑌᑎᎥ丅ᗴ</div>
         </Link>
 
-        <Link to="/explore" className="left_nav_link">
-          <div className="functional_icon_container">
-            <RiHashtag className="function_icon" />
-            <div className="functionality">Explore</div>
-          </div>
-        </Link>
+        {arr.map((item) => (
+          <Link to={`/page/${item.component}`} className="left_nav_link">
+            <div className="functional_icon_container">
+              <div className="function_icon">{item.icon}</div>
+              <div className="functionality">{item.component}</div>
+            </div>
+          </Link>
+        ))}
 
-        <Link to="/bookmark" className="left_nav_link">
-          <div className="functional_icon_container">
-            <FiBookmark className="function_icon" />
-            <div className="functionality">Bookmarks</div>
-          </div>
-        </Link>
-
-        <Link to="/profile" className="left_nav_link">
-          <div className="functional_icon_container">
-            <CgProfile className="function_icon" />
+        <Link to={`/profile/${user?.username}`} className="left_nav_link">
+          <div title="Profile" className="functional_icon_container">
+            <div className="function_icon">
+              <CgProfile />
+            </div>
             <div className="functionality">Profile</div>
           </div>
         </Link>
+
+        <div
+          onClick={logoutHandler}
+          title="Logout"
+          className="functional_icon_container"
+        >
+          <div className="function_icon">
+            <RiLogoutCircleLine />
+          </div>
+          <div className="functionality">Logout</div>
+        </div>
 
         <button className="post_btn" onClick={postHandler}>
           Post
         </button>
       </div>
 
-      <div className="profile">
-        <img src="http://res.cloudinary.com/dwhran9qg/image/upload/avatar/6_j6gf77.jpg" />
-        <div>
-          <div className="profile_name">Parul Gupta</div>
-          <div className="profile_email">@guptaparul123</div>
+      <Link to={`/profile/${user?.username}`} className="left_nav_link">
+        <div className="profile">
+          <img src={user?.avatarURL} alt="profile pic" />
+          <div>
+            <div className="profile_name">
+              {user?.firstName} {user?.lastName}
+            </div>
+            <div className="profile_email">@{user?.username}</div>
+          </div>
         </div>
-      </div>
+      </Link>
 
       {postModal && (
         <PostModal
