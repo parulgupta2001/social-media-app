@@ -8,10 +8,10 @@ export function RightNav() {
         <div className="who_to_follow_header">Who to follow</div>
         <div className="who_to_follow_content">
           <div className="follow_suggestions">
-            <img src="http://res.cloudinary.com/dwhran9qg/image/upload/avatar/1_bkfj1j.jpg" />
+            <img src="http://res.cloudinary.com/dwhran9qg/image/upload/avatar/sundar_pichai_xikclb.jpg" />
             <div>
-              <div className="follow_suggestion_name">Elon Musk</div>
-              <div className="follow_suggestion_username">@elonmusk</div>
+              <div className="follow_suggestion_name">S.Pichai</div>
+              <div className="follow_suggestion_username">@sundar</div>
             </div>
             <button className="follow_btn">Follow</button>
           </div>

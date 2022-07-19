@@ -1,0 +1,23 @@
+.modal_container {
+  position: fixed;
+  top: 27vh;
+  left: 45vw;
+  transform: translate(-50%, -50%);
+  height: 35%;
+  width: 32rem;
+  border-radius: 1rem;
+  background-color: var(--who-to-follow-background-color);
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  z-index: 3;
+}
+
+.close_btn {
+  float: right;
+}
+
+.post_modal_input {
+  background-color: var(--who-to-follow-background-color) !important;
+}
