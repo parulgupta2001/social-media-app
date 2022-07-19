@@ -27,7 +27,6 @@ const getSinglePost = createAsyncThunk(
 const addPost = createAsyncThunk(
   "posts/addPost",
   async ({ postData, token }) => {
-    console.log(postData, token);
     const response = await axios.post(
       "/api/posts",
       { postData },
@@ -63,7 +62,6 @@ const editPost = createAsyncThunk(
 const likePost = createAsyncThunk(
   "posts/likePost",
   async ({ postId, token }) => {
-    console.log("like");
     const response = await axios.post(
       `/api/posts/like/${postId}`,
       {},
@@ -78,8 +76,6 @@ const likePost = createAsyncThunk(
 const dislikePost = createAsyncThunk(
   "posts/dislikePost",
   async ({ postId, token }) => {
-    console.log("dislike");
-    console.log("dislike post executed");
     const response = await axios.post(
       `/api/posts/dislike/${postId}`,
       {},
@@ -102,7 +98,6 @@ const getAllComments = createAsyncThunk(
 const addComment = createAsyncThunk(
   "posts/addComment",
   async ({ postId, commentData, token }) => {
-    console.log("comment added");
     const response = await axios.post(
       `/api/comments/add/${postId}`,
       { commentData },
@@ -162,7 +157,6 @@ const addBookmark = createAsyncThunk(
 const removeBookmark = createAsyncThunk(
   "posts/removeBookmark",
   async ({ postId, token }) => {
-    console.log("bookmark removed");
     const response = await axios.post(
       `/api/users/remove-bookmark/${postId}`,
       {},
@@ -299,7 +293,6 @@ const postsSlice = createSlice({
     [addBookmark.rejected]: (state, action) => {
       state.bookmarksStatus = "error";
       state.error = action.error;
-      console.log(state.error);
     },
 
     [removeBookmark.fulfilled]: (state, action) => {

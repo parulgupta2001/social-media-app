@@ -1,5 +1,5 @@
 import "./right-navbar.css";
-import { followAnotherUser, getAllUsers, getUser } from "../../features/index";
+import { followAnotherUser, getAllUsers } from "../../features/index";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
@@ -13,8 +13,6 @@ export function RightNav() {
   useEffect(() => {
     dispatch(getAllUsers());
   }, [dispatch]);
-
-  console.log(user);
 
   const search = (input, allUsers) => {
     if (input.trim().length === 0) {

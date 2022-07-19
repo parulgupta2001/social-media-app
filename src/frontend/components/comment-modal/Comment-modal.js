@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./comment-modal.css";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
@@ -18,10 +18,7 @@ export function CommentModal({
   };
 
   const addCommentHandler = () => {
-    console.log(text);
-    dispatch(addComment({ postId, commentData: { text }, token })).then((res) =>
-      console.log(res)
-    );
+    dispatch(addComment({ postId, commentData: { text }, token }));
     setCommentModal(false);
   };
 

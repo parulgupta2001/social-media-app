@@ -22,8 +22,8 @@ export function Signup() {
       ...userDetail,
     });
     e.preventDefault();
-    dispatch(signup(userDetail)).then((res) => console.log(res));
-    setTimeout(() => Navigate("/page/Home"), 3000);
+    dispatch(signup(userDetail));
+    setTimeout(() => Navigate("/page/Home"), 1000);
   };
 
   return (

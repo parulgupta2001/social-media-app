@@ -22,7 +22,6 @@ const getUser = createAsyncThunk("user/getUser", async (username) => {
 const editUserDetail = createAsyncThunk(
   "user/editUserDetail",
   async ({ userData, token }, thunkAPI) => {
-    console.log(userData);
     const response = await axios.post(
       "/api/users/edit",
       { userData },
@@ -93,20 +92,7 @@ const userSlice = createSlice({
     },
     [getUser.rejected]: (state, action) => {
       state.userStatus = "failure";
-      console.log(action.error);
     },
-
-    // [editUserDetail.pending]: (state) => {
-    //   state.userStatus = "loading";
-    // },
-    // [editUserDetail.fulfilled]: (state) => {
-    //   state.userStatus = "success";
-    // },
-    // [editUserDetail.rejected]: (state, action) => {
-    //   state.userStatus = "failure";
-    //   state.error = action.error;
-    // },
-
     [getUserPosts.pending]: (state) => {
       state.userStatus = "loading";
     },
@@ -117,7 +103,6 @@ const userSlice = createSlice({
     [getUserPosts.rejected]: (state, action) => {
       state.userStatus = "failure";
       state.error = action.error;
-      console.log(state.error);
     },
 
     [followAnotherUser.pending]: (state) => {

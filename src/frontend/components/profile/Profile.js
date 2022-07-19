@@ -47,7 +47,6 @@ export function Profile({ commentModal, setCommentModal }) {
     setId(_id);
   };
 
-  console.log(editProfileModal);
   return (
     <div className="profile_container main">
       <div>

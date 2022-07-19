@@ -149,7 +149,6 @@ export function MainContent({ commentModal, setCommentModal }) {
                       title="bookmark"
                       className="added_bookmark post_icon"
                       onClick={() => {
-                        console.log(_id, token);
                         dispatch(removeBookmark({ postId: _id, token }));
                       }}
                     />
@@ -158,7 +157,6 @@ export function MainContent({ commentModal, setCommentModal }) {
                       title="bookmark"
                       className="post_icon"
                       onClick={() => {
-                        console.log(_id, token);
                         dispatch(addBookmark({ postId: _id, token }));
                       }}
                     />

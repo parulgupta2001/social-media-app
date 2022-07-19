@@ -11,7 +11,7 @@ export function Login() {
 
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(login(userDetail)).then((res) => console.log(res));
+    dispatch(login(userDetail));
     setTimeout(() => navigate("/page/Home"), 1000);
   };
 

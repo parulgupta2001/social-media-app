@@ -13,9 +13,7 @@ export function EditProfileModal({
   const [userData, setUserData] = useState({});
 
   const updateUserDetails = () => {
-    dispatch(editUserDetail({ userData, token })).then((res) =>
-      console.log(res)
-    );
+    dispatch(editUserDetail({ userData, token }));
     setUserData({ website: "", about: "" });
     setEditProfileModal(false);
   };
