@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { CommentModal, EditProfileModal } from "../index";
 import { BiCommentDetail } from "react-icons/bi";
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import "./profile.css";
 import { Link } from "react-router-dom";
 import {
+  getUserPosts,
+  getUser,
   editUserDetail,
   getSinglePost,
   addComment,
@@ -16,7 +18,7 @@ import {
   addBookmark,
 } from "../../features/index";
 
-export function Profile({ commentModal, setCommentModal }) {
+export function Profile({ userDetail, commentModal, setCommentModal }) {
   const { user, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const {
@@ -28,12 +30,16 @@ export function Profile({ commentModal, setCommentModal }) {
     avatarURL,
     about,
     website,
-  } = user;
+  } = userDetail;
 
-  const { bookmarks, singlePost } = useSelector((store) => store.posts);
-  const [editProfileModal, setEditProfileModal] = useState(false);
+  const { bookmarks, singlePost, posts } = useSelector((store) => store.posts);
   const { userPosts } = useSelector((store) => store.user);
+  const [editProfileModal, setEditProfileModal] = useState(false);
   const [id, setId] = useState(null);
+
+  useEffect(() => {
+    dispatch(getUserPosts(username));
+  }, [username, posts]);
 
   const sortPosts = (posts) => {
     let newOrder = [...posts].sort(
@@ -59,12 +65,15 @@ export function Profile({ commentModal, setCommentModal }) {
           alt="cover pic"
         />
         <img src={avatarURL} className="avatar_display_pic" alt="profile pic" />
-        <button
-          onClick={() => setEditProfileModal((prev) => !prev)}
-          className="edit_profile"
-        >
-          Edit profile
-        </button>
+        {username === user.username && (
+          <button
+            onClick={() => setEditProfileModal((prev) => !prev)}
+            className="edit_profile"
+          >
+            Edit profile
+          </button>
+        )}
+
         {editProfileModal && (
           <EditProfileModal
             editUserDetail={editUserDetail}
@@ -83,8 +92,10 @@ export function Profile({ commentModal, setCommentModal }) {
           </div>
 
           <div className="about_user_container">
-            <div>{about}</div>
-            <a href={user.website}>{website}</a>
+            <div> {username === user.username ? user.about : about}</div>
+            <a href={user.website}>
+              {username === user.username ? user.website : website}
+            </a>
             <div className="about_user_account">
               <div className="user_account_content">
                 {userPosts.length}{" "}
