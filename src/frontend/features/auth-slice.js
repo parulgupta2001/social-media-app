@@ -3,23 +3,23 @@ import axios from "axios";
 
 const initialState = {
   token: localStorage.getItem("token") ?? null,
-  user: JSON.parse(localStorage.getItem("user")) || null,
   status: "idle",
+  user: JSON.parse(localStorage.getItem("user")) ?? {},
   error: null,
 };
 
-const signup = createAsyncThunk("auth/signup", async (detail) => {
+const signup = createAsyncThunk("auth/signup", async (userDetail) => {
   const response = await axios.post("/api/auth/signup", {
-    ...detail,
+    ...userDetail,
   });
-  return response.data.encodedToken;
+  return response.data;
 });
 
-const login = createAsyncThunk("auth/login", async (detail) => {
+const login = createAsyncThunk("auth/login", async (userDetail) => {
   const response = await axios.post("/api/auth/login", {
-    ...detail,
+    ...userDetail,
   });
-  return response.data.encodedToken;
+  return response.data;
 });
 
 const authSlice = createSlice({
@@ -27,10 +27,14 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     logout: (state) => {
+      state.token = null;
+      state.user = null;
       localStorage.removeItem("token");
       localStorage.removeItem("user");
-      state.token = "";
-      state.user = null;
+    },
+    updateUser: (state, action) => {
+      state.user = action.payload;
+      localStorage.setItem("user", JSON.stringify(action.payload));
     },
   },
   extraReducers: {
@@ -38,33 +42,34 @@ const authSlice = createSlice({
       state.status = "loading";
     },
     [signup.fulfilled]: (state, action) => {
-      state.token = action.payload;
-      state.status = "fulfilled";
-      localStorage.setItem("token", action.payload);
+      state.status = "success";
+      state.token = action.payload.encodedToken;
+      state.user = action.payload.createdUser;
+      localStorage.setItem("token", action.payload.encodedToken);
+      localStorage.setItem("user", JSON.stringify(action.payload.createdUser));
     },
     [signup.rejected]: (state, action) => {
-      state.status = "error";
-      state.error = action.error;
-      console.log(state.error);
+      state.status = "failure";
+      state.error = action.payload.error;
     },
-
     [login.pending]: (state) => {
       state.status = "loading";
     },
     [login.fulfilled]: (state, action) => {
-      state.token = action.payload;
-      state.status = "fulfilled";
-      localStorage.setItem("token", action.payload);
+      state.status = "success";
+      state.token = action.payload.encodedToken;
+      state.user = action.payload.foundUser;
+      localStorage.setItem("token", action.payload.encodedToken);
+      localStorage.setItem("user", JSON.stringify(action.payload.foundUser));
     },
     [login.rejected]: (state, action) => {
-      state.status = "error";
-      state.error = action.error;
-      console.log(state.error);
+      state.status = "failure";
+      state.error = action.payload.error;
     },
   },
 });
 
 export const authReducer = authSlice.reducer;
-export const { logout } = authSlice.actions;
+export const { logout, updateUser } = authSlice.actions;
 
-export { signup, login };
+export { login, signup };

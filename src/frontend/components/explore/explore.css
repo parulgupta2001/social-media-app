@@ -1,0 +1,11 @@
+.explore_container {
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+  border-bottom: solid 1px var(--border-color);
+  padding: 1rem;
+}
+
+.explore_header {
+  padding: 1rem;
+}

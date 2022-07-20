@@ -1,18 +1,29 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { signup } from "../../features/auth-slice";
+import { signup } from "../../features/index";
 import "./signup.css";
 
 export function Signup() {
   const Navigate = useNavigate();
   const dispatch = useDispatch();
-  const [detail, setDetail] = useState({});
+  const [userDetail, setUserDetail] = useState({
+    firstName: "",
+    lastName: "",
+    username: "",
+    password: "",
+    email: "",
+    avatarURL:
+      "http://res.cloudinary.com/dwhran9qg/image/upload/avatar/blank_avatar_eymn5m",
+  });
 
   const signupHandler = (e) => {
+    setUserDetail({
+      ...userDetail,
+    });
     e.preventDefault();
-    dispatch(signup(detail));
-    Navigate("/");
+    dispatch(signup(userDetail));
+    setTimeout(() => Navigate("/page/Home"), 1000);
   };
 
   return (
@@ -25,9 +36,9 @@ export function Signup() {
             <input
               type="text"
               className="name_input first_name"
-              value={detail.firstName}
+              value={userDetail.firstName}
               onChange={(e) =>
-                setDetail({ ...detail, firstName: e.target.value })
+                setUserDetail({ ...userDetail, firstName: e.target.value })
               }
             />
           </div>
@@ -36,9 +47,9 @@ export function Signup() {
             <input
               type="text"
               className="name_input last_name"
-              value={detail.lastName}
+              value={userDetail.lastName}
               onChange={(e) =>
-                setDetail({ ...detail, lastName: e.target.value })
+                setUserDetail({ ...userDetail, lastName: e.target.value })
               }
             />
           </div>
@@ -51,8 +62,10 @@ export function Signup() {
             <input
               type="email"
               className="user_input"
-              value={detail.email}
-              onChange={(e) => setDetail({ ...detail, email: e.target.value })}
+              value={userDetail.email}
+              onChange={(e) =>
+                setUserDetail({ ...userDetail, email: e.target.value })
+              }
             />
           </div>
         </div>
@@ -64,9 +77,9 @@ export function Signup() {
             <input
               type="text"
               className="user_input"
-              value={detail.username}
+              value={userDetail.username}
               onChange={(e) =>
-                setDetail({ ...detail, username: e.target.value })
+                setUserDetail({ ...userDetail, username: e.target.value })
               }
             />
           </div>
@@ -79,9 +92,9 @@ export function Signup() {
             <input
               type="password"
               className="user_input"
-              value={detail.password}
+              value={userDetail.password}
               onChange={(e) =>
-                setDetail({ ...detail, password: e.target.value })
+                setUserDetail({ ...userDetail, password: e.target.value })
               }
             />
           </div>

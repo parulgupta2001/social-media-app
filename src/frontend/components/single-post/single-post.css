@@ -1,0 +1,17 @@
+.single_post_container {
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  row-gap: 2rem;
+}
+
+.single_post_icon {
+  padding: 1rem;
+  border-top: 1px solid var(--border-color);
+  border-bottom: 1px solid var(--border-color);
+}
+
+.single_post_comment_content {
+  border-bottom: 1px solid var(--border-color);
+  padding-bottom: 0.5rem;
+}

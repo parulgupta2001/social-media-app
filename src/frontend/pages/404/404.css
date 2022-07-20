@@ -1,0 +1,11 @@
+.page_not_found_img {
+  width: 35rem;
+  position: relative;
+}
+
+.go_to_home {
+  position: absolute;
+  left: 45rem;
+  font-size: larger;
+  text-decoration: underline;
+}

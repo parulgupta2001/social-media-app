@@ -3,3 +3,8 @@ export { MainContent } from "./main-content/Main-content";
 export { RightNav } from "./right-navbar/Right-navbar";
 export { PostModal } from "./post-modal/Post-modal";
 export { CommentModal } from "./comment-modal/Comment-modal";
+export { Bookmarks } from "./bookmarks/Bookmarks";
+export { Profile } from "./profile/Profile";
+export { EditProfileModal } from "./edit-profile-modal/Edit-profile-modal";
+export { SinglePost } from "./single-post/Single-post";
+export { Explore } from "./explore/Explore";

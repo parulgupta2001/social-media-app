@@ -1,20 +1,18 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
-import { login } from "../../features/auth-slice";
+import { login } from "../../features/index";
 import "./login.css";
 
 export function Login() {
-  const [detail, setDetail] = useState({});
+  const [userDetail, setUserDetail] = useState({});
   const navigate = useNavigate();
-  const location = useLocation();
   const dispatch = useDispatch();
 
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(login(detail));
-    let from = location.state?.from?.pathname || "/";
-    navigate(from, { replace: true });
+    dispatch(login(userDetail));
+    setTimeout(() => navigate("/page/Home"), 1000);
   };
 
   return (
@@ -30,7 +28,7 @@ export function Login() {
               type="text"
               className="user_input"
               onChange={(e) =>
-                setDetail({ ...detail, username: e.target.value })
+                setUserDetail({ ...userDetail, username: e.target.value })
               }
             />
           </div>
@@ -44,7 +42,7 @@ export function Login() {
               type="password"
               className="user_input"
               onChange={(e) =>
-                setDetail({ ...detail, password: e.target.value })
+                setUserDetail({ ...userDetail, password: e.target.value })
               }
             />
             <div className="forgot_password"> Forgot Password?</div>
@@ -57,8 +55,8 @@ export function Login() {
         <button
           className="login_btn"
           onClick={() =>
-            setDetail({
-              username: "parulgupta",
+            setUserDetail({
+              username: "parul",
               password: "parul123",
             })
           }
