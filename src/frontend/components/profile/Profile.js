@@ -1,14 +1,14 @@
 import { useState, useEffect } from "react";
 import { CommentModal, EditProfileModal } from "../index";
 import { BiCommentDetail } from "react-icons/bi";
-import { AiOutlineHeart, AiFillHeart } from "react-icons/ai";
+import { AiOutlineHeart, AiFillHeart, AiFillDelete } from "react-icons/ai";
 import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
 import { useDispatch, useSelector } from "react-redux";
 import "./profile.css";
 import { Link } from "react-router-dom";
+import { sortPosts } from "../../helpers";
 import {
   getUserPosts,
-  getUser,
   editUserDetail,
   getSinglePost,
   addComment,
@@ -16,15 +16,25 @@ import {
   dislikePost,
   removeBookmark,
   addBookmark,
+  followAnotherUser,
+  unfollowAnotherUser,
+  deletePost,
 } from "../../features/index";
 
-export function Profile({ userDetail, commentModal, setCommentModal }) {
+export function Profile({
+  userDetail,
+  commentModal,
+  setCommentModal,
+  editProfileModal,
+  setEditProfileModal,
+}) {
   const { user, token } = useSelector((store) => store.auth);
   const dispatch = useDispatch();
   const {
     username,
     firstName,
     lastName,
+    _id,
     followers,
     following,
     avatarURL,
@@ -33,20 +43,20 @@ export function Profile({ userDetail, commentModal, setCommentModal }) {
   } = userDetail;
 
   const { bookmarks, singlePost, posts } = useSelector((store) => store.posts);
-  const { userPosts } = useSelector((store) => store.user);
-  const [editProfileModal, setEditProfileModal] = useState(false);
+  const { userPosts, allUsers } = useSelector((store) => store.user);
   const [id, setId] = useState(null);
 
   useEffect(() => {
     dispatch(getUserPosts(username));
   }, [username, posts]);
 
-  const sortPosts = (posts) => {
-    let newOrder = [...posts].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
-    return newOrder;
-  };
+  const whoToFollow = allUsers
+    ?.filter(
+      (person) =>
+        !user?.following?.map((item) => item.username).includes(person.username)
+    )
+    .map((person) => person.username)
+    .filter((person) => person !== user?.username);
 
   const commentHandler = (_id) => {
     setCommentModal((prev) => !prev);
@@ -65,12 +75,30 @@ export function Profile({ userDetail, commentModal, setCommentModal }) {
           alt="cover pic"
         />
         <img src={avatarURL} className="avatar_display_pic" alt="profile pic" />
-        {username === user.username && (
+        {username === user.username ? (
           <button
             onClick={() => setEditProfileModal((prev) => !prev)}
             className="edit_profile"
           >
             Edit profile
+          </button>
+        ) : whoToFollow.includes(username) ? (
+          <button
+            className="edit_profile"
+            onClick={() =>
+              dispatch(followAnotherUser({ followUserId: _id, token }))
+            }
+          >
+            Follow
+          </button>
+        ) : (
+          <button
+            className="edit_profile"
+            onClick={() =>
+              dispatch(unfollowAnotherUser({ unfollowUserId: _id, token }))
+            }
+          >
+            Unfollow
           </button>
         )}
 
@@ -197,6 +225,14 @@ export function Profile({ userDetail, commentModal, setCommentModal }) {
                     }
                   />
                 )}
+
+                {username === user.username ? (
+                  <AiFillDelete
+                    title="delete"
+                    className="post_icon"
+                    onClick={() => dispatch(deletePost({ postId: _id, token }))}
+                  />
+                ) : null}
               </div>
               {commentModal ? (
                 <CommentModal

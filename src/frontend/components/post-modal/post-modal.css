@@ -3,29 +3,39 @@
   top: 27vh;
   left: 45vw;
   transform: translate(-50%, -50%);
-  height: 35%;
-  width: 32rem;
+  min-height: 35%;
+  width: 32vw;
   border-radius: 1rem;
-  background-color: var(--who-to-follow-background-color);
+  background-color: var(--body-background-color);
   padding: 1rem;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  flex-wrap: wrap;
+  pointer-events: initial;
 }
 
 .close_btn {
   float: right;
 }
 
-.post_modal_input {
-  background-color: var(--who-to-follow-background-color) !important;
+.post_modal {
+  justify-content: space-between;
 }
 
-.modal {
-  top: 0;
-  right: 0;
-  bottom: 0;
-  left: 0;
-  position: absolute;
-  background-color: rgba(0, 0, 0, 0.7);
+.post_modal_textarea {
+  background-color: var(--body-background-color) !important;
+}
+
+@media screen and (max-width: 1100px) {
+  .modal_container {
+    left: 65.8vw;
+    width: 60vw;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .modal_container {
+    left: 59vw;
+    width: 62vw;
+  }
 }

@@ -47,6 +47,7 @@ export function SinglePost({ commentModal, setCommentModal }) {
               @{singlePost?.username}
             </span>
           </div>
+
           <div>{singlePost?.content}</div>
         </div>
       </div>

@@ -16,6 +16,7 @@ import {
 } from "../../features/index";
 import { useState, useEffect } from "react";
 import { CommentModal } from "../index";
+import { sortPosts, filterUserFeedPost } from "../../helpers/index";
 
 export function MainContent({ commentModal, setCommentModal }) {
   const dispatch = useDispatch();
@@ -43,12 +44,8 @@ export function MainContent({ commentModal, setCommentModal }) {
     setId(_id);
   };
 
-  const sortPosts = (posts) => {
-    let newOrder = [...posts].sort(
-      (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
-    );
-    return newOrder;
-  };
+  const postData = sortPosts(posts);
+  const userFeedPost = filterUserFeedPost(user, postData);
 
   return (
     <div className="main_content_container main">
@@ -63,7 +60,7 @@ export function MainContent({ commentModal, setCommentModal }) {
               alt="profile pic"
             />
           </Link>
-          <input
+          <textarea
             placeholder="What's happening?"
             value={text}
             onChange={(e) => changeHandler(e)}
@@ -75,7 +72,7 @@ export function MainContent({ commentModal, setCommentModal }) {
       </div>
 
       <div className="posts">
-        {sortPosts(posts).map(
+        {userFeedPost.map(
           ({
             firstName,
             lastName,

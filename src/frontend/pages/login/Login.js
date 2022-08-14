@@ -16,7 +16,7 @@ export function Login() {
   };
 
   return (
-    <div>
+    <div className="login">
       <form onSubmit={loginHandler} className="login_container">
         <h3>LOGIN</h3>
         <div>
@@ -27,6 +27,7 @@ export function Login() {
             <input
               type="text"
               className="user_input"
+              value={userDetail.username}
               onChange={(e) =>
                 setUserDetail({ ...userDetail, username: e.target.value })
               }
@@ -41,6 +42,7 @@ export function Login() {
             <input
               type="password"
               className="user_input"
+              value={userDetail.password}
               onChange={(e) =>
                 setUserDetail({ ...userDetail, password: e.target.value })
               }

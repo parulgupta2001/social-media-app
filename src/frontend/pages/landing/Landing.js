@@ -5,11 +5,6 @@ export function Landing() {
   return (
     <div className="landing_container">
       <div className="logo landing_page_logo">ᖇᗴᑌᑎᎥ丅ᗴ</div>;
-      <img
-        src="http://res.cloudinary.com/dwhran9qg/image/upload/Image/Connected_world-amico_wj70lr.svg"
-        className="landing_page_img_one"
-        alt="social media connected pic"
-      />
       <div className="landing_page_content">
         <div className="landing_page_content_header">IMAGINE A PLACE...</div>
         <div className="landing_page_content_paragraphs">
@@ -30,11 +25,18 @@ export function Landing() {
           </Link>
         </div>
       </div>
-      <img
-        src="http://res.cloudinary.com/dwhran9qg/image/upload/Image/Digital_tools-bro_3_d6ck84.svg"
-        className="landing_page_img_two"
-        alt="social media connected pic"
-      />
+      <div className="landing_page_img_container">
+        <img
+          src="http://res.cloudinary.com/dwhran9qg/image/upload/Image/Online_world-cuate_dnc48h.svg"
+          className="landing_page_img img_one"
+          alt="social media connected pic"
+        />
+        <img
+          src="http://res.cloudinary.com/dwhran9qg/image/upload/Image/Connected_world-amico_wj70lr.svg"
+          className="landing_page_img img_two"
+          alt="social media connected pic"
+        />
+      </div>
     </div>
   );
 }

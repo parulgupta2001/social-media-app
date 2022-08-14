@@ -2,6 +2,7 @@
   width: 30%;
   display: flex;
   flex-direction: column;
+  flex-wrap: wrap;
   position: sticky;
   top: 0;
   align-self: flex-start;
@@ -28,7 +29,7 @@ svg {
 }
 
 .post_btn {
-  width: 12rem;
+  width: 12vw;
   height: 3rem;
   border-radius: 2rem;
   font-weight: 700;
@@ -40,13 +41,14 @@ svg {
 .functional_icon_container {
   display: flex;
   column-gap: 1rem;
+  flex-wrap: wrap;
 }
 
-.functional_icon_container:hover {
+/* .functional_icon_container:hover {
   background-color: var(--who-to-follow-background-color);
   border-radius: 1rem;
   width: 11rem;
-}
+} */
 
 .functionality {
   font-size: 1.4rem;
@@ -83,4 +85,26 @@ svg {
 .left_nav_link {
   text-decoration: none;
   color: var(--font-primary-color);
+}
+
+@media screen and (max-width: 1100px) {
+  .left_nav_container {
+    padding-left: 2rem;
+  }
+}
+
+@media screen and (max-width: 700px) {
+  .about_profile,
+  .functionality,
+  .website_name,
+  .post_btn {
+    display: none;
+  }
+  .left_nav_container {
+    width: 10%;
+    align-items: center;
+  }
+  .profile {
+    padding-right: 13rem;
+  }
 }

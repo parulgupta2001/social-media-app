@@ -1,4 +1,5 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { toast } from "react-toastify";
 import axios from "axios";
 
 const initialState = {
@@ -40,8 +41,9 @@ const addPost = createAsyncThunk(
 const deletePost = createAsyncThunk(
   "posts/deletePost",
   async ({ postId, token }) => {
+    console.log(postId, token);
     const response = await axios.delete(`/api/posts/${postId}`, {
-      Headers: { authorization: token },
+      headers: { authorization: token },
     });
     return response.data.posts;
   }
@@ -53,7 +55,7 @@ const editPost = createAsyncThunk(
     const response = await axios.post(
       `/api/posts/edit/${postId}`,
       { postData },
-      { Headers: { authorization: token } }
+      { headers: { authorization: token } }
     );
     return response.data.posts;
   }
@@ -197,19 +199,23 @@ const postsSlice = createSlice({
     [addPost.fulfilled]: (state, action) => {
       state.postsStatus = "fulfilled";
       state.posts = action.payload;
+      toast.success("Successfully Posted");
     },
     [addPost.rejected]: (state, action) => {
       state.postsStatus = "error";
       state.error = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
 
     [deletePost.fulfilled]: (state, action) => {
       state.postsStatus = "fulfilled";
       state.posts = action.payload;
+      toast.success("Post deleted Successfully ");
     },
     [deletePost.rejected]: (state, action) => {
       state.postsStatus = "error";
       state.error = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
 
     [editPost.fulfilled]: (state, action) => {
@@ -224,19 +230,23 @@ const postsSlice = createSlice({
     [likePost.fulfilled]: (state, action) => {
       state.postsStatus = "fulfilled";
       state.posts = action.payload;
+      toast.success("Post Liked");
     },
     [likePost.rejected]: (state, action) => {
       state.postsStatus = "error";
       state.error = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
 
     [dislikePost.fulfilled]: (state, action) => {
       state.postsStatus = "fulfilled";
       state.posts = action.payload;
+      toast.success("Post Disliked");
     },
     [dislikePost.rejected]: (state, action) => {
       state.postsStatus = "error";
       state.error = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
 
     [getAllComments.fulfilled]: (state, action) => {
@@ -251,10 +261,12 @@ const postsSlice = createSlice({
     [addComment.fulfilled]: (state, action) => {
       state.postsStatus = "fulfilled";
       state.posts = action.payload;
+      toast.success("Comment added");
     },
     [addComment.rejected]: (state, action) => {
       state.postsStatus = "error";
       state.error = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
 
     [editComment.fulfilled]: (state, action) => {
@@ -289,19 +301,23 @@ const postsSlice = createSlice({
     [addBookmark.fulfilled]: (state, action) => {
       state.bookmarksStatus = "fulfilled";
       state.bookmarks = action.payload;
+      toast.success("Post Successfully Bookmarked");
     },
     [addBookmark.rejected]: (state, action) => {
       state.bookmarksStatus = "error";
       state.error = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
 
     [removeBookmark.fulfilled]: (state, action) => {
       state.bookmarksStatus = "fulfilled";
       state.bookmarks = action.payload;
+      toast.success("Bookmark Removed");
     },
     [removeBookmark.rejected]: (state, action) => {
       state.bookmarksStatus = "error";
       state.bookmarks = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
   },
 });
