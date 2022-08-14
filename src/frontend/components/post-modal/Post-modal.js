@@ -22,8 +22,8 @@ export function PostModal({ dispatch, addPost, token, setPostModal }) {
   };
 
   return (
-    <div className="modal">
-      <div className="modal_container">
+    <div>
+      <div className="modal_container post_modal">
         <div>
           <AiOutlineClose
             onClick={() => setPostModal(false)}
@@ -35,7 +35,7 @@ export function PostModal({ dispatch, addPost, token, setPostModal }) {
               src={user.avatarURL}
               alt="profile pic"
             />
-            <input
+            <textarea
               className="post_modal_input"
               onChange={changeHandler}
               value={text}

@@ -29,13 +29,12 @@ export function RightNav() {
     }
   };
 
-  const whoToFollow = allUsers?.filter(
-    (person) =>
-      ![
-        ...user?.following?.map((item) => item?.username),
-        user?.username,
-      ].includes(person?.username)
-  );
+  const whoToFollow = allUsers
+    ?.filter(
+      (person) =>
+        !user?.following?.map((item) => item.username).includes(person.username)
+    )
+    .filter((person) => person.username !== user?.username);
 
   const followHandler = (_id) => {
     dispatch(followAnotherUser({ followUserId: _id, token }));

@@ -1,6 +1,7 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
 import { updateUser } from "./auth-slice";
+import { toast } from "react-toastify";
 
 const initialState = {
   allUsers: [],
@@ -59,9 +60,15 @@ const unfollowAnotherUser = createAsyncThunk(
   async ({ unfollowUserId, token }, thunkAPI) => {
     const response = await axios.post(
       `/api/users/unfollow/${unfollowUserId}`,
-
+      {},
       { headers: { authorization: token } }
     );
+    const allUsers = response.data.users;
+    const user = thunkAPI.getState().auth.user;
+    const newData = allUsers.find(
+      (person) => person.username === user.username
+    );
+    thunkAPI.dispatch(updateUser(newData));
     return response.data.users;
   }
 );
@@ -111,10 +118,12 @@ const userSlice = createSlice({
     [followAnotherUser.fulfilled]: (state, action) => {
       state.userStatus = "success";
       state.allUsers = action.payload;
+      toast.success("Successfully Followed");
     },
     [followAnotherUser.rejected]: (state, action) => {
       state.userStatus = "failure";
       state.error = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
 
     [unfollowAnotherUser.pending]: (state) => {
@@ -123,10 +132,12 @@ const userSlice = createSlice({
     [unfollowAnotherUser.fulfilled]: (state, action) => {
       state.userStatus = "success";
       state.allUsers = action.payload;
+      toast.success("Successfully Unfollowed");
     },
     [unfollowAnotherUser.rejected]: (state, action) => {
       state.userStatus = "failure";
       state.error = action.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
   },
 });

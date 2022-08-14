@@ -1,9 +1,3 @@
-html {
-  background-color: var(--body-background-color);
-  display: flex;
-  justify-content: center;
-}
-
 .signup_container {
   display: flex;
   flex-direction: column;
@@ -61,4 +55,24 @@ html {
 .exist_account {
   display: flex;
   column-gap: 4px;
+}
+
+.dummy_signup_btn {
+  width: 18rem;
+  border-radius: 6px;
+  cursor: pointer;
+  height: 2rem;
+  border: none;
+  font-weight: 600;
+  color: var(--btn-background-color);
+}
+
+.dummy_signup_btn:hover {
+  background-color: var(--bookmark-color);
+  color: var(--font-primary-color);
+}
+
+.signup {
+  display: flex;
+  justify-content: center;
 }

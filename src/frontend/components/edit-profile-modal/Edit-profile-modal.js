@@ -19,7 +19,7 @@ export function EditProfileModal({
   };
 
   return (
-    <div className="modal">
+    <div>
       <div className="edit_profile_container">
         <div>
           <AiOutlineClose

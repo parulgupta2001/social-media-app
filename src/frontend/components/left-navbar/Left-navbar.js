@@ -31,7 +31,7 @@ export function LeftNav({ postModal, setPostModal }) {
     <div className="left_nav_container">
       <div className="functional_container">
         <Link to="/page/Home" className="logo_link">
-          <div className="logo">ᖇᗴᑌᑎᎥ丅ᗴ</div>
+          <div className="logo website_name">ᖇᗴᑌᑎᎥ丅ᗴ</div>
         </Link>
 
         {arr.map((item) => (
@@ -71,7 +71,7 @@ export function LeftNav({ postModal, setPostModal }) {
       <Link to={`/profile/${user?.username}`} className="left_nav_link">
         <div className="profile">
           <img src={user?.avatarURL} alt="profile pic" />
-          <div>
+          <div className="about_profile">
             <div className="profile_name">
               {user?.firstName} {user?.lastName}
             </div>

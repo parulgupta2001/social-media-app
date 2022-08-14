@@ -43,3 +43,8 @@
 .forgot_password {
   cursor: pointer;
 }
+
+.login {
+  display: flex;
+  justify-content: center;
+}

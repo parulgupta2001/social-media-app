@@ -15,6 +15,7 @@ import { useSelector } from "react-redux";
 export function Home() {
   const [postModal, setPostModal] = useState(false);
   const [commentModal, setCommentModal] = useState(false);
+  const [editProfileModal, setEditProfileModal] = useState(false);
   const { component, username } = useParams();
 
   const { allUsers } = useSelector((store) => store.user);
@@ -23,7 +24,11 @@ export function Home() {
 
   return (
     <div>
-      <div className="home_container">
+      <div
+        className={
+          postModal || editProfileModal || commentModal ? "blur" : "no_blur"
+        }
+      >
         <LeftNav postModal={postModal} setPostModal={setPostModal} />
         {component === "Home" && (
           <MainContent
@@ -48,6 +53,8 @@ export function Home() {
             userDetail={userDetail}
             commentModal={commentModal}
             setCommentModal={setCommentModal}
+            editProfileModal={editProfileModal}
+            setEditProfileModal={setEditProfileModal}
           />
         )}
         {component?.length > 15 && (

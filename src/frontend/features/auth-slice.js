@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import axios from "axios";
+import { toast } from "react-toastify";
 
 const initialState = {
   token: localStorage.getItem("token") ?? null,
@@ -47,10 +48,12 @@ const authSlice = createSlice({
       state.user = action.payload.createdUser;
       localStorage.setItem("token", action.payload.encodedToken);
       localStorage.setItem("user", JSON.stringify(action.payload.createdUser));
+      toast.success("Signup Successful");
     },
     [signup.rejected]: (state, action) => {
       state.status = "failure";
       state.error = action.payload.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
     [login.pending]: (state) => {
       state.status = "loading";
@@ -61,10 +64,12 @@ const authSlice = createSlice({
       state.user = action.payload.foundUser;
       localStorage.setItem("token", action.payload.encodedToken);
       localStorage.setItem("user", JSON.stringify(action.payload.foundUser));
+      toast.success("Welcome to ReuniTe");
     },
     [login.rejected]: (state, action) => {
       state.status = "failure";
       state.error = action.payload.error;
+      toast.error(`${state.error} Error. Please try again later!`);
     },
   },
 });
