@@ -1,7 +1,8 @@
 .comment_modal_container {
   display: flex;
-  column-gap: 2rem;
+  column-gap: 1.5rem;
   align-items: center;
+  flex-wrap: wrap;
 }
 
 .comment_modal {
@@ -10,7 +11,7 @@
 
 .add_comment {
   display: flex;
-  column-gap: 2rem;
+  column-gap: 1.5rem;
 }
 
 .comment_btn {

@@ -53,7 +53,7 @@ export function CommentModal({
           placeholder="Post your reply"
         />
         <button onClick={addCommentHandler} className="comment_btn">
-          Comment
+          Post
         </button>
       </div>
     </div>
