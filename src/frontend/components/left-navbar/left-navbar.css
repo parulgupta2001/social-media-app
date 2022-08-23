@@ -9,7 +9,7 @@
   min-height: 100vh;
   align-items: center;
   border-right: solid 1px var(--border-color);
-  row-gap: 11rem;
+  row-gap: 3rem;
 }
 
 .logo {
@@ -23,7 +23,7 @@
   text-decoration: none;
 }
 
-svg {
+.left_nav_icons {
   width: 1.6rem;
   height: 1.6rem;
 }
@@ -36,19 +36,15 @@ svg {
   background-color: var(--btn-background-color);
   color: var(--font-primary-color);
   font-size: 16px;
+  cursor: pointer;
 }
 
 .functional_icon_container {
   display: flex;
   column-gap: 1rem;
   flex-wrap: wrap;
+  cursor: pointer;
 }
-
-/* .functional_icon_container:hover {
-  background-color: var(--who-to-follow-background-color);
-  border-radius: 1rem;
-  width: 11rem;
-} */
 
 .functionality {
   font-size: 1.4rem;

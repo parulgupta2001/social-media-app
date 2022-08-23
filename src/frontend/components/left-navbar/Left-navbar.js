@@ -13,9 +13,9 @@ export function LeftNav({ postModal, setPostModal }) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const arr = [
-    { component: "Home", icon: <AiFillHome /> },
-    { component: "Explore", icon: <RiHashtag /> },
-    { component: "Bookmarks", icon: <BsBookmark /> },
+    { component: "Home", icon: <AiFillHome className="left_nav_icons" /> },
+    { component: "Explore", icon: <RiHashtag className="left_nav_icons" /> },
+    { component: "Bookmarks", icon: <BsBookmark className="left_nav_icons" /> },
   ];
 
   const logoutHandler = () => {
@@ -46,7 +46,7 @@ export function LeftNav({ postModal, setPostModal }) {
         <Link to={`/profile/${user?.username}`} className="left_nav_link">
           <div title="Profile" className="functional_icon_container">
             <div className="function_icon">
-              <CgProfile />
+              <CgProfile className="left_nav_icons" />
             </div>
             <div className="functionality">Profile</div>
           </div>
@@ -58,7 +58,7 @@ export function LeftNav({ postModal, setPostModal }) {
           className="functional_icon_container"
         >
           <div className="function_icon">
-            <RiLogoutCircleLine />
+            <RiLogoutCircleLine className="left_nav_icons" />
           </div>
           <div className="functionality">Logout</div>
         </div>

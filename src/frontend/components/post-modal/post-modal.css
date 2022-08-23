@@ -16,6 +16,7 @@
 
 .close_btn {
   float: right;
+  cursor: pointer;
 }
 
 .post_modal {

@@ -53,6 +53,7 @@
   border-radius: 1rem;
   font-weight: 600;
   border: none;
+  cursor: pointer;
 }
 
 .follow_suggestion_name {

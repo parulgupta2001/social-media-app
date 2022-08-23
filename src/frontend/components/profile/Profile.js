@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import { CommentModal, EditProfileModal } from "../index";
-import { BiCommentDetail } from "react-icons/bi";
-import { AiOutlineHeart, AiFillHeart, AiFillDelete } from "react-icons/ai";
-import { BsBookmark, BsFillBookmarkFill } from "react-icons/bs";
+import { TbMessageCircle } from "react-icons/tb";
+import { TiHeartOutline, TiHeart } from "react-icons/ti";
+import { MdBookmarkBorder, MdBookmark, MdDelete } from "react-icons/md";
 import { useDispatch, useSelector } from "react-redux";
 import "./profile.css";
 import { Link } from "react-router-dom";
@@ -177,11 +177,11 @@ export function Profile({
               </Link>
 
               <div className="comment_container_icon">
-                <div>
+                <div className="icons">
                   {likes.likedBy.some(
-                    (person) => person.username === user.username
+                    (person) => person.username === user?.username
                   ) ? (
-                    <AiFillHeart
+                    <TiHeart
                       title="like"
                       className="liked_post post_icon"
                       onClick={() =>
@@ -189,7 +189,7 @@ export function Profile({
                       }
                     />
                   ) : (
-                    <AiOutlineHeart
+                    <TiHeartOutline
                       title="like"
                       className="post_icon"
                       onClick={() => dispatch(likePost({ postId: _id, token }))}
@@ -199,8 +199,8 @@ export function Profile({
                   {likes.likedBy.length > 0 && likes.likedBy.length}
                 </div>
 
-                <div>
-                  <BiCommentDetail
+                <div className="icons">
+                  <TbMessageCircle
                     title="comment"
                     className="post_icon"
                     onClick={() => commentHandler(_id)}
@@ -209,27 +209,27 @@ export function Profile({
                 </div>
 
                 {bookmarks?.some((post) => post._id === _id) ? (
-                  <BsFillBookmarkFill
+                  <MdBookmark
                     title="bookmark"
-                    className="added_bookmark post_icon"
-                    onClick={() =>
-                      dispatch(removeBookmark({ postId: _id, token }))
-                    }
+                    className="added_bookmark post_icon icons"
+                    onClick={() => {
+                      dispatch(removeBookmark({ postId: _id, token }));
+                    }}
                   />
                 ) : (
-                  <BsBookmark
+                  <MdBookmarkBorder
                     title="bookmark"
-                    className="post_icon"
-                    onClick={() =>
-                      dispatch(addBookmark({ postId: _id, token }))
-                    }
+                    className="post_icon icons"
+                    onClick={() => {
+                      dispatch(addBookmark({ postId: _id, token }));
+                    }}
                   />
                 )}
 
                 {username === user.username ? (
-                  <AiFillDelete
+                  <MdDelete
                     title="delete"
-                    className="post_icon"
+                    className="post_icon icons"
                     onClick={() => dispatch(deletePost({ postId: _id, token }))}
                   />
                 ) : null}

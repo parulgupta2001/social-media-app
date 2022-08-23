@@ -3,6 +3,7 @@ import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { login } from "../../features/index";
 import "./login.css";
+import { toast } from "react-toastify";
 
 export function Login() {
   const [userDetail, setUserDetail] = useState({});
@@ -11,8 +12,17 @@ export function Login() {
 
   const loginHandler = (e) => {
     e.preventDefault();
-    dispatch(login(userDetail));
-    setTimeout(() => navigate("/page/Home"), 1000);
+    dispatch(login(userDetail)).then((response) => {
+      if (response?.payload?.encodedToken) {
+        navigate("/page/Home");
+      } else if (
+        response.error.message === "Request failed with status code 401"
+      ) {
+        toast.error("Please enter correct credentials");
+      } else {
+        toast.error(`${response.error.message}. Please try again.`);
+      }
+    });
   };
 
   return (

@@ -24,6 +24,7 @@ Preview Link: https://reunite-social-media.vercel.app/
 - Authentication
   - Login
   - Signup
+  - Dummy Signup
   - Guest Login
 - Fully Resposive
 

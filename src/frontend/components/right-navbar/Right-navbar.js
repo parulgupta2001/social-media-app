@@ -43,7 +43,7 @@ export function RightNav() {
   return (
     <div className="right_nav_container">
       <input
-        placeholder="Search"
+        placeholder="Search users"
         className="right_nav_input"
         onChange={(e) => {
           setSearchUser(search(e.target.value, allUsers));

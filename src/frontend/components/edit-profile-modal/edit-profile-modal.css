@@ -1,13 +1,11 @@
 .edit_profile_container {
-  position: absolute;
-  top: 6rem;
-  left: 6rem;
   background-color: var(--body-background-color);
   height: 20rem;
   width: 16rem;
   padding: 1rem;
   border-radius: 1rem;
   pointer-events: initial;
+  margin: -4rem 0 0 9rem;
 }
 
 .edit_profile_content_container {

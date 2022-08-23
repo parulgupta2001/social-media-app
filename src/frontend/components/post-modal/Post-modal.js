@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { AiOutlineClose } from "react-icons/ai";
 import { useSelector } from "react-redux";
+import { toast } from "react-toastify";
 import "./post-modal.css";
 
 export function PostModal({ dispatch, addPost, token, setPostModal }) {
@@ -12,13 +13,18 @@ export function PostModal({ dispatch, addPost, token, setPostModal }) {
   };
 
   const postClickHandler = () => {
-    dispatch(
-      addPost({
-        postData: { content: text },
-        token,
-      })
-    );
-    setPostModal(false);
+    if (text.trim() === "") {
+      toast.error("Error. Please type something!");
+      setPostModal(true);
+    } else {
+      dispatch(
+        addPost({
+          postData: { content: text },
+          token,
+        })
+      );
+      setPostModal(false);
+    }
   };
 
   return (

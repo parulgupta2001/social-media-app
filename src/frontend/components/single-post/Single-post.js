@@ -1,7 +1,7 @@
 import { useEffect } from "react";
-import { BiCommentDetail } from "react-icons/bi";
-import { AiFillHeart, AiOutlineHeart } from "react-icons/ai";
-import { BsFillBookmarkFill, BsBookmark } from "react-icons/bs";
+import { TbMessageCircle } from "react-icons/tb";
+import { TiHeartOutline, TiHeart } from "react-icons/ti";
+import { MdBookmarkBorder, MdBookmark } from "react-icons/md";
 import { useParams, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import {
@@ -53,11 +53,11 @@ export function SinglePost({ commentModal, setCommentModal }) {
       </div>
 
       <div className="comment_container_icon single_post_icon ">
-        <div>
+        <div className="icons">
           {singlePost?.likes.likedBy.some(
-            (person) => person.username === user.username
+            (person) => person.username === user?.username
           ) ? (
-            <AiFillHeart
+            <TiHeart
               title="like"
               className="liked_post post_icon"
               onClick={() =>
@@ -65,7 +65,7 @@ export function SinglePost({ commentModal, setCommentModal }) {
               }
             />
           ) : (
-            <AiOutlineHeart
+            <TiHeartOutline
               title="like"
               className="post_icon"
               onClick={() =>
@@ -78,8 +78,8 @@ export function SinglePost({ commentModal, setCommentModal }) {
             singlePost?.likes.likedBy.length}
         </div>
 
-        <div>
-          <BiCommentDetail
+        <div className="icons">
+          <TbMessageCircle
             title="comment"
             className="post_icon"
             onClick={() => setCommentModal(true)}
@@ -88,17 +88,17 @@ export function SinglePost({ commentModal, setCommentModal }) {
         </div>
 
         {bookmarks?.some((post) => post._id === singlePost?._id) ? (
-          <BsFillBookmarkFill
+          <MdBookmark
             title="bookmark"
-            className="added_bookmark post_icon"
+            className="added_bookmark post_icon icons"
             onClick={() =>
               dispatch(removeBookmark({ postId: singlePost?._id, token }))
             }
           />
         ) : (
-          <BsBookmark
+          <MdBookmarkBorder
             title="bookmark"
-            className="post_icon"
+            className="post_icon icons"
             onClick={() =>
               dispatch(addBookmark({ postId: singlePost?._id, token }))
             }
